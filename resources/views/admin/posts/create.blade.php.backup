@@ -1,0 +1,310 @@
+@extends('adminlte::page')
+
+@section('title', 'Create New Post')
+
+@section('content_header')
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Create New Post</h1>
+        <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Posts
+        </a>
+    </div>
+@stop
+
+@section('content')
+<form id="post-form" action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Post Details</h3>
+            </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="title">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" 
+                               id="title" name="title" value="{{ old('title') }}" required>
+                        @error('title')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" 
+                               id="slug" name="slug" value="{{ old('slug') }}">
+                        <small class="form-text text-muted">Leave empty to auto-generate from title</small>
+                        @error('slug')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="excerpt">Excerpt</label>
+                        <textarea class="form-control @error('excerpt') is-invalid @enderror" 
+                                  id="excerpt" name="excerpt" rows="3">{{ old('excerpt') }}</textarea>
+                        <small class="form-text text-muted">Short description of the post</small>
+                        @error('excerpt')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content">Content <span class="text-danger">*</span></label>
+                        <div id="editor-container">
+                            <div id="editor" style="min-height: 400px;"></div>
+                        </div>
+                        <textarea id="content" name="content" class="d-none @error('content') is-invalid @enderror" required>{{ old('content') }}</textarea>
+                        @error('content')
+                            <span class="invalid-feedback d-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="featured_image">Featured Image</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('featured_image') is-invalid @enderror" 
+                                   id="featured_image" name="featured_image" accept="image/*">
+                            <label class="custom-file-label" for="featured_image">Choose file</label>
+                        </div>
+                        <small class="form-text text-muted">Recommended size: 1200x600 pixels</small>
+                        @error('featured_image')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control @error('tags') is-invalid @enderror" 
+                               id="tags" name="tags" value="{{ old('tags') }}">
+                        <small class="form-text text-muted">Separate multiple tags with commas</small>
+                        @error('tags')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Publish Settings</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="category_id">Category <span class="text-danger">*</span></label>
+                    <select class="form-control @error('category_id') is-invalid @enderror" 
+                            id="category_id" name="category_id" required>
+                        <option value="">Select Category</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status <span class="text-danger">*</span></label>
+                    <select class="form-control @error('status') is-invalid @enderror" 
+                            id="status" name="status" required>
+                        <option value="draft" {{ old('status', 'draft') == 'draft' ? 'selected' : '' }}>Draft</option>
+                        <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending Review</option>
+                        <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
+                    </select>
+                    @error('status')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="is_featured" name="is_featured" value="1" 
+                           {{ old('is_featured') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="is_featured">
+                        Featured Post
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="published_at">Publish Date</label>
+                    <input type="datetime-local" class="form-control @error('published_at') is-invalid @enderror" 
+                           id="published_at" name="published_at" value="{{ old('published_at') }}">
+                    <small class="form-text text-muted">Leave empty for immediate publishing</small>
+                    @error('published_at')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-save"></i> Create Post
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">SEO Settings</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="meta_title">Meta Title</label>
+                    <input type="text" class="form-control @error('meta_title') is-invalid @enderror" 
+                           id="meta_title" name="meta_title" value="{{ old('meta_title') }}" 
+                           maxlength="60">
+                    <small class="form-text text-muted">Recommended: 50-60 characters</small>
+                    @error('meta_title')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="meta_description">Meta Description</label>
+                    <textarea class="form-control @error('meta_description') is-invalid @enderror" 
+                              id="meta_description" name="meta_description" rows="3" 
+                              maxlength="160">{{ old('meta_description') }}</textarea>
+                    <small class="form-text text-muted">Recommended: 150-160 characters</small>
+                    @error('meta_description')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+@stop
+
+@section('css')
+    <style>
+        .custom-file-label::after {
+            content: "Browse";
+        }
+        .form-group label {
+            font-weight: 600;
+        }
+        .text-danger {
+            color: #dc3545 !important;
+        }
+    </style>
+@stop
+
+@section('js')
+<!-- CKEditor 5 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
+<script>
+let editorInstance;
+
+$(document).ready(function() {
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: {
+                items: [
+                    'heading', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+                    'alignment', '|',
+                    'numberedList', 'bulletedList', '|',
+                    'outdent', 'indent', '|',
+                    'todoList', '|',
+                    'link', 'insertImage', 'mediaEmbed', '|',
+                    'insertTable', '|',
+                    'blockQuote', 'codeBlock', '|',
+                    'horizontalLine', '|',
+                    'undo', 'redo'
+                ]
+            },
+            language: 'en',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:inline',
+                    'imageStyle:block',
+                    'imageStyle:side',
+                    '|',
+                    'toggleImageCaption',
+                    'imageResize'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells',
+                    'tableCellProperties',
+                    'tableProperties'
+                ]
+            }
+        })
+        .then(editor => {
+            editorInstance = editor;
+            
+            // Set initial content if exists
+            const initialContent = $('#content').val();
+            if (initialContent) {
+                editor.setData(initialContent);
+            }
+            
+            // Update hidden textarea when editor content changes
+            editor.model.document.on('change:data', () => {
+                $('#content').val(editor.getData());
+            });
+            
+            // Set minimum height
+            const editorElement = editor.ui.getEditableElement();
+            editorElement.style.minHeight = '400px';
+        })
+        .catch(error => {
+            console.error('Error initializing CKEditor:', error);
+            // Fallback to regular textarea
+            $('#editor-container').html('<textarea class="form-control" id="content-fallback" name="content" rows="15" required></textarea>');
+            $('#content').remove();
+            $('#content-fallback').attr('name', 'content');
+        });
+
+    // Auto-generate slug from title
+    $('#title').on('input', function() {
+        if ($('#slug').val() === '') {
+            let slug = $(this).val()
+                .toLowerCase()
+                .replace(/[^\w ]+/g, '')
+                .replace(/ +/g, '-');
+            $('#slug').val(slug);
+        }
+    });
+
+    // Custom file input
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+    });
+
+    // Character counters
+    $('#meta_title').on('input', function() {
+        let length = $(this).val().length;
+        let color = length > 60 ? 'text-danger' : (length > 50 ? 'text-warning' : 'text-success');
+        $(this).siblings('.form-text').removeClass('text-muted text-success text-warning text-danger').addClass(color);
+    });
+
+    $('#meta_description').on('input', function() {
+        let length = $(this).val().length;
+        let color = length > 160 ? 'text-danger' : (length > 150 ? 'text-warning' : 'text-success');
+        $(this).siblings('.form-text').removeClass('text-muted text-success text-warning text-danger').addClass(color);
+    });
+
+    // Form submission - ensure editor data is synced
+    $('#post-form').on('submit', function(e) {
+        if (editorInstance) {
+            $('#content').val(editorInstance.getData());
+        }
+    });
+});
+</script>
+@stop
