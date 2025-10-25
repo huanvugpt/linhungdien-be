@@ -38,3 +38,27 @@ Route::get('category/{category}', [PostController::class, 'category'])->name('po
 Route::get('post/{post}', [PostController::class, 'show'])->name('posts.show');
 
 // Post interactions are now handled via API only
+
+// Test route for proxy detection (development only)
+if (config('app.debug')) {
+    Route::get('/proxy-test', function () {
+        return response()->json([
+            'client_ip' => request()->ip(),
+            'client_ips' => request()->ips(),
+            'is_secure' => request()->secure(),
+            'scheme' => request()->getScheme(),
+            'host' => request()->getHost(),
+            'headers' => [
+                'x-forwarded-for' => request()->header('X-Forwarded-For'),
+                'x-forwarded-proto' => request()->header('X-Forwarded-Proto'),
+                'x-forwarded-host' => request()->header('X-Forwarded-Host'),
+                'x-forwarded-port' => request()->header('X-Forwarded-Port'),
+            ],
+            'server_vars' => [
+                'REMOTE_ADDR' => $_SERVER['REMOTE_ADDR'] ?? null,
+                'HTTP_X_FORWARDED_FOR' => $_SERVER['HTTP_X_FORWARDED_FOR'] ?? null,
+                'HTTP_X_FORWARDED_PROTO' => $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? null,
+            ]
+        ]);
+    });
+}
