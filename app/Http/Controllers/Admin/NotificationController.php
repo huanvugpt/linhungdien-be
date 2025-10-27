@@ -136,6 +136,9 @@ class NotificationController extends Controller
 
         $notification = Notification::create($notificationData);
 
+        // Create recipients based on target type
+        $this->createRecipientsForNotification($notification, $data);
+
         // If scheduled for now, dispatch immediately
         if ($notificationData['status'] === 'scheduled' && 
             isset($notificationData['scheduled_at']) &&
@@ -290,5 +293,70 @@ class NotificationController extends Controller
         return redirect()
             ->route('admin.notifications.index')
             ->with('success', 'Notification deleted successfully.');
+    }
+
+    /**
+     * Create recipients for a notification based on target type
+     */
+    private function createRecipientsForNotification(Notification $notification, array $data)
+    {
+        $recipients = [];
+
+        switch ($data['target_type']) {
+            case 'all_users':
+                // Add all active users
+                $users = User::where('status', 'active')->get();
+                foreach ($users as $user) {
+                    $recipients[] = [
+                        'notification_id' => $notification->id,
+                        'recipient_type' => NotificationRecipient::USER_TYPE_USER,
+                        'recipient_id' => $user->id,
+                        'is_read' => false,
+                        'delivery_status' => NotificationRecipient::DELIVERY_PENDING,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ];
+                }
+                break;
+
+            case 'specific_user':
+                if (!empty($data['target_user_id'])) {
+                    $recipients[] = [
+                        'notification_id' => $notification->id,
+                        'recipient_type' => NotificationRecipient::USER_TYPE_USER,
+                        'recipient_id' => $data['target_user_id'],
+                        'is_read' => false,
+                        'delivery_status' => NotificationRecipient::DELIVERY_PENDING,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ];
+                }
+                break;
+
+            case 'all_admins':
+                // Add all admins
+                $admins = Admin::all();
+                foreach ($admins as $admin) {
+                    $recipients[] = [
+                        'notification_id' => $notification->id,
+                        'recipient_type' => NotificationRecipient::USER_TYPE_ADMIN,
+                        'recipient_id' => $admin->id,
+                        'is_read' => false,
+                        'delivery_status' => NotificationRecipient::DELIVERY_PENDING,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ];
+                }
+                break;
+        }
+
+        if (!empty($recipients)) {
+            NotificationRecipient::insert($recipients);
+            
+            // Update notification with recipient count
+            $notification->update([
+                'total_recipients' => count($recipients)
+            ]);
+        }
     }
 }
