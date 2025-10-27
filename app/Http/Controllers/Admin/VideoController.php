@@ -92,7 +92,7 @@ class VideoController extends Controller
 
             $video = Video::create([
                 'title' => $request->title,
-                'slug' => Str::slug($request->title),
+                'slug' => $this->generateUniqueSlug($request->title),
                 'excerpt' => $request->excerpt,
                 'content' => $request->content,
                 'description' => $request->description,
@@ -184,7 +184,9 @@ class VideoController extends Controller
 
             $updateData = [
                 'title' => $request->title,
-                'slug' => Str::slug($request->title),
+                'slug' => $video->title !== $request->title 
+                    ? $this->generateUniqueSlug($request->title, $video->id)
+                    : $video->slug,
                 'excerpt' => $request->excerpt,
                 'content' => $request->content,
                 'description' => $request->description,
@@ -263,20 +265,37 @@ class VideoController extends Controller
     /**
      * Extract YouTube video ID from URL
      */
-    private function extractYouTubeId(string $url): ?string
+    private function extractYouTubeId($url)
     {
-        $patterns = [
-            '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/',
-            '/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/',
-            '/youtube\.com\/v\/([a-zA-Z0-9_-]{11})/',
-        ];
+        $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/';
+        preg_match($pattern, $url, $matches);
+        return isset($matches[1]) ? $matches[1] : null;
+    }
 
-        foreach ($patterns as $pattern) {
-            if (preg_match($pattern, $url, $matches)) {
-                return $matches[1];
+    /**
+     * Generate unique slug for video
+     */
+    private function generateUniqueSlug($title, $excludeId = null)
+    {
+        $baseSlug = Str::slug($title);
+        $slug = $baseSlug;
+        $counter = 1;
+        
+        $query = Video::where('slug', $slug);
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+        
+        while ($query->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+            
+            $query = Video::where('slug', $slug);
+            if ($excludeId) {
+                $query->where('id', '!=', $excludeId);
             }
         }
-
-        return null;
+        
+        return $slug;
     }
 }
