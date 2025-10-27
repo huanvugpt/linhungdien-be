@@ -103,7 +103,7 @@
                                             <td>
                                                 <span class="badge badge-info">{{ $video->category->name }}</span>
                                             </td>
-                                            <td>{{ $video->user->name ?? 'N/A' }}</td>
+                                            <td>{{ $video->creator_name }}</td>
                                             <td>
                                                 <span class="badge badge-secondary">{{ number_format($video->views_count) }}</span>
                                             </td>

@@ -28,6 +28,7 @@ class Video extends Model
         'likes_count',
         'category_id',
         'user_id',
+        'admin_id',
         'published_at'
     ];
 
@@ -91,6 +92,27 @@ class Video extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relationship: Video belongs to an admin
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
+    /**
+     * Get creator name (admin or user)
+     */
+    public function getCreatorNameAttribute(): string
+    {
+        if ($this->admin_id && $this->admin) {
+            return $this->admin->name . ' (Admin)';
+        } elseif ($this->user_id && $this->user) {
+            return $this->user->name . ' (User)';
+        }
+        return 'Unknown';
     }
 
     /**

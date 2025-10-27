@@ -15,7 +15,7 @@ class VideoController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Video::with(['category', 'user']);
+        $query = Video::with(['category', 'user', 'admin']);
 
         // Search
         if ($request->has('search')) {
@@ -63,40 +63,56 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'nullable|string|max:500',
-            'content' => 'nullable|string',
-            'description' => 'nullable|string|max:1000',
-            'youtube_url' => 'required|url|regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/',
-            'category_id' => 'required|exists:categories,id',
-            'is_featured' => 'boolean',
-            'is_active' => 'boolean',
-        ]);
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'excerpt' => 'nullable|string|max:500',
+                'content' => 'nullable|string',
+                'description' => 'nullable|string|max:1000',
+                'youtube_url' => 'required|url',
+                'category_id' => 'required|exists:categories,id',
+                'is_featured' => 'boolean',
+                'is_active' => 'boolean',
+            ]);
 
-        // Extract YouTube ID
-        $youtubeId = $this->extractYouTubeId($request->youtube_url);
-        if (!$youtubeId) {
-            return back()->withErrors(['youtube_url' => 'URL YouTube không hợp lệ'])->withInput();
+            // Extract YouTube ID
+            $youtubeId = $this->extractYouTubeId($request->youtube_url);
+            if (!$youtubeId) {
+                return back()->withErrors(['youtube_url' => 'URL YouTube không hợp lệ'])->withInput();
+            }
+
+            $video = Video::create([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'excerpt' => $request->excerpt,
+                'content' => $request->content,
+                'description' => $request->description,
+                'youtube_url' => $request->youtube_url,
+                'youtube_id' => $youtubeId,
+                'thumbnail_url' => "https://img.youtube.com/vi/{$youtubeId}/maxresdefault.jpg",
+                'category_id' => $request->category_id,
+                'admin_id' => auth('admin')->id(),
+                'user_id' => null, // Created by admin, not by user
+                'is_featured' => $request->boolean('is_featured', false),
+                'is_active' => $request->boolean('is_active', true),
+                'published_at' => now(),
+            ]);
+
+            \Log::info('Video created successfully', ['video_id' => $video->id, 'admin_id' => auth('admin')->id()]);
+
+            return redirect()->route('admin.videos.index')->with('success', 'Video đã được tạo thành công!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Video validation failed', ['errors' => $e->errors()]);
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Video creation failed', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'admin_id' => auth('admin')->id()
+            ]);
+            return back()->with('error', 'Có lỗi xảy ra khi tạo video: ' . $e->getMessage())->withInput();
         }
-
-        Video::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'excerpt' => $request->excerpt,
-            'content' => $request->content,
-            'description' => $request->description,
-            'youtube_url' => $request->youtube_url,
-            'youtube_id' => $youtubeId,
-            'thumbnail_url' => "https://img.youtube.com/vi/{$youtubeId}/maxresdefault.jpg",
-            'category_id' => $request->category_id,
-            'user_id' => auth('admin')->id(),
-            'is_featured' => $request->boolean('is_featured', false),
-            'is_active' => $request->boolean('is_active', true),
-            'published_at' => now(),
-        ]);
-
-        return redirect()->route('admin.videos.index')->with('success', 'Video đã được tạo thành công!');
     }
 
     /**
@@ -104,7 +120,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        $video->load(['category', 'user']);
+        $video->load(['category', 'user', 'admin']);
         return view('admin.videos.show', compact('video'));
     }
 
@@ -175,7 +191,7 @@ class VideoController extends Controller
      */
     public function featured(Request $request)
     {
-        $videos = Video::with(['category', 'user'])
+        $videos = Video::with(['category', 'user', 'admin'])
             ->where('is_featured', true)
             ->latest()
             ->paginate(15);
