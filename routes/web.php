@@ -16,14 +16,14 @@ Route::get('/', function () {
         'name' => 'Linh Ứng Điện Backend API',
         'version' => '1.0.0',
         'status' => 'running',
-        'endpoints' => [
-            'api_health' => url('/api/health'),
-            'api_auth' => url('/api/auth/*'),
-            'api_posts' => url('/api/posts'),
-            'api_categories' => url('/api/categories'),
-            'admin_panel' => url('/admin'),
-        ],
-        'documentation' => 'See README.md or INSTALL.md for full documentation'
+        // 'endpoints' => [
+        //     'api_health' => url('/api/health'),
+        //     'api_auth' => url('/api/auth/*'),
+        //     'api_posts' => url('/api/posts'),
+        //     'api_categories' => url('/api/categories'),
+        //     'admin_panel' => url('/admin'),
+        // ],
+        // 'documentation' => 'See README.md or INSTALL.md for full documentation'
     ]);
 })->name('home');
 

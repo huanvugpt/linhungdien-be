@@ -73,12 +73,21 @@ class VideoController extends Controller
                 'category_id' => 'required|exists:categories,id',
                 'is_featured' => 'boolean',
                 'is_active' => 'boolean',
+            ], [
+                'title.required' => 'Tiêu đề video là bắt buộc.',
+                'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+                'excerpt.max' => 'Tóm tắt không được vượt quá 500 ký tự.',
+                'description.max' => 'Mô tả không được vượt quá 1000 ký tự.',
+                'youtube_url.required' => 'Link YouTube là bắt buộc.',
+                'youtube_url.url' => 'Link YouTube không đúng định dạng URL.',
+                'category_id.required' => 'Vui lòng chọn danh mục cho video.',
+                'category_id.exists' => 'Danh mục được chọn không tồn tại.',
             ]);
 
             // Extract YouTube ID
             $youtubeId = $this->extractYouTubeId($request->youtube_url);
             if (!$youtubeId) {
-                return back()->withErrors(['youtube_url' => 'URL YouTube không hợp lệ'])->withInput();
+                return back()->withErrors(['youtube_url' => 'URL YouTube không hợp lệ. Vui lòng sử dụng định dạng: https://www.youtube.com/watch?v=VIDEO_ID hoặc https://youtu.be/VIDEO_ID'])->withInput();
             }
 
             $video = Video::create([
@@ -102,16 +111,30 @@ class VideoController extends Controller
 
             return redirect()->route('admin.videos.index')->with('success', 'Video đã được tạo thành công!');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            \Log::error('Video validation failed', ['errors' => $e->errors()]);
+            \Log::error('Video validation failed', ['errors' => $e->errors(), 'admin_id' => auth('admin')->id()]);
             return back()->withErrors($e->errors())->withInput();
+        } catch (\Illuminate\Database\QueryException $e) {
+            \Log::error('Video database error', [
+                'error' => $e->getMessage(),
+                'sql' => $e->getSql(),
+                'admin_id' => auth('admin')->id()
+            ]);
+            return back()->with('error', 'Lỗi cơ sở dữ liệu: Không thể lưu video. Vui lòng kiểm tra lại thông tin và thử lại.')->withInput();
         } catch (\Exception $e) {
             \Log::error('Video creation failed', [
                 'error' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'admin_id' => auth('admin')->id()
+                'admin_id' => auth('admin')->id(),
+                'request_data' => $request->except(['_token'])
             ]);
-            return back()->with('error', 'Có lỗi xảy ra khi tạo video: ' . $e->getMessage())->withInput();
+            
+            $errorMessage = 'Có lỗi xảy ra khi tạo video.';
+            if (app()->environment('local')) {
+                $errorMessage .= ' Lỗi: ' . $e->getMessage();
+            }
+            
+            return back()->with('error', $errorMessage)->withInput();
         }
     }
 
@@ -138,43 +161,81 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'nullable|string|max:500',
-            'content' => 'nullable|string',
-            'description' => 'nullable|string|max:1000',
-            'youtube_url' => 'required|url|regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/',
-            'category_id' => 'required|exists:categories,id',
-            'is_featured' => 'boolean',
-            'is_active' => 'boolean',
-        ]);
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'excerpt' => 'nullable|string|max:500',
+                'content' => 'nullable|string',
+                'description' => 'nullable|string|max:1000',
+                'youtube_url' => 'required|url',
+                'category_id' => 'required|exists:categories,id',
+                'is_featured' => 'boolean',
+                'is_active' => 'boolean',
+            ], [
+                'title.required' => 'Tiêu đề video là bắt buộc.',
+                'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+                'excerpt.max' => 'Tóm tắt không được vượt quá 500 ký tự.',
+                'description.max' => 'Mô tả không được vượt quá 1000 ký tự.',
+                'youtube_url.required' => 'Link YouTube là bắt buộc.',
+                'youtube_url.url' => 'Link YouTube không đúng định dạng URL.',
+                'category_id.required' => 'Vui lòng chọn danh mục cho video.',
+                'category_id.exists' => 'Danh mục được chọn không tồn tại.',
+            ]);
 
-        $updateData = [
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'excerpt' => $request->excerpt,
-            'content' => $request->content,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-            'is_featured' => $request->boolean('is_featured', false),
-            'is_active' => $request->boolean('is_active', true),
-        ];
+            $updateData = [
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'excerpt' => $request->excerpt,
+                'content' => $request->content,
+                'description' => $request->description,
+                'category_id' => $request->category_id,
+                'is_featured' => $request->boolean('is_featured', false),
+                'is_active' => $request->boolean('is_active', true),
+            ];
 
-        // Update YouTube info if URL changed
-        if ($video->youtube_url !== $request->youtube_url) {
-            $youtubeId = $this->extractYouTubeId($request->youtube_url);
-            if (!$youtubeId) {
-                return back()->withErrors(['youtube_url' => 'URL YouTube không hợp lệ'])->withInput();
+            // Update YouTube info if URL changed
+            if ($video->youtube_url !== $request->youtube_url) {
+                $youtubeId = $this->extractYouTubeId($request->youtube_url);
+                if (!$youtubeId) {
+                    return back()->withErrors(['youtube_url' => 'URL YouTube không hợp lệ. Vui lòng sử dụng định dạng: https://www.youtube.com/watch?v=VIDEO_ID hoặc https://youtu.be/VIDEO_ID'])->withInput();
+                }
+
+                $updateData['youtube_url'] = $request->youtube_url;
+                $updateData['youtube_id'] = $youtubeId;
+                $updateData['thumbnail_url'] = "https://img.youtube.com/vi/{$youtubeId}/maxresdefault.jpg";
             }
 
-            $updateData['youtube_url'] = $request->youtube_url;
-            $updateData['youtube_id'] = $youtubeId;
-            $updateData['thumbnail_url'] = "https://img.youtube.com/vi/{$youtubeId}/maxresdefault.jpg";
+            $video->update($updateData);
+
+            \Log::info('Video updated successfully', ['video_id' => $video->id, 'admin_id' => auth('admin')->id()]);
+
+            return redirect()->route('admin.videos.index')->with('success', 'Video đã được cập nhật thành công!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Video update validation failed', ['errors' => $e->errors(), 'admin_id' => auth('admin')->id()]);
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Illuminate\Database\QueryException $e) {
+            \Log::error('Video update database error', [
+                'error' => $e->getMessage(),
+                'sql' => $e->getSql(),
+                'admin_id' => auth('admin')->id()
+            ]);
+            return back()->with('error', 'Lỗi cơ sở dữ liệu: Không thể cập nhật video. Vui lòng kiểm tra lại thông tin và thử lại.')->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Video update failed', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'admin_id' => auth('admin')->id(),
+                'request_data' => $request->except(['_token'])
+            ]);
+            
+            $errorMessage = 'Có lỗi xảy ra khi cập nhật video.';
+            if (app()->environment('local')) {
+                $errorMessage .= ' Lỗi: ' . $e->getMessage();
+            }
+            
+            return back()->with('error', $errorMessage)->withInput();
         }
-
-        $video->update($updateData);
-
-        return redirect()->route('admin.videos.index')->with('success', 'Video đã được cập nhật thành công!');
     }
 
     /**
