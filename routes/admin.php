@@ -64,6 +64,7 @@ Route::middleware('admin')->group(function () {
     Route::get('notifications/statistics', [NotificationController::class, 'stats'])->name('notifications.stats');
     Route::post('notifications/{notification}/send', [NotificationController::class, 'send'])->name('notifications.send');
     Route::post('notifications/{notification}/cancel', [NotificationController::class, 'cancel'])->name('notifications.cancel');
+    Route::post('notifications/{notification}/stop', [NotificationController::class, 'stop'])->name('notifications.stop');
     
     // Album Management
     Route::resource('albums', AlbumController::class);

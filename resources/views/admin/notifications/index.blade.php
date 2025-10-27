@@ -85,6 +85,7 @@
                                 <option value="sent" {{ request('status') == 'sent' ? 'selected' : '' }}>Sent</option>
                                 <option value="failed" {{ request('status') == 'failed' ? 'selected' : '' }}>Failed</option>
                                 <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                <option value="stopped" {{ request('status') == 'stopped' ? 'selected' : '' }}>Stopped</option>
                             </select>
                         </div>
                         <div class="input-group input-group-sm mr-2">
@@ -188,6 +189,11 @@
                                                     <i class="fas fa-ban"></i> Cancelled
                                                 </span>
                                                 @break
+                                            @case('stopped')
+                                                <span class="badge badge-warning">
+                                                    <i class="fas fa-stop"></i> Stopped
+                                                </span>
+                                                @break
                                         @endswitch
                                     </td>
                                     <td>
@@ -233,6 +239,16 @@
                                                     <button type="submit" class="btn btn-warning btn-sm" title="Cancel"
                                                             onclick="return confirm('Cancel this notification?')">
                                                         <i class="fas fa-ban"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            
+                                            @if($notification->status === 'sending')
+                                                <form action="{{ route('admin.notifications.stop', $notification) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Stop Sending"
+                                                            onclick="return confirm('Stop sending this notification? Pending recipients will be marked as failed.')">
+                                                        <i class="fas fa-stop"></i> Stop
                                                     </button>
                                                 </form>
                                             @endif

@@ -17,6 +17,7 @@ class Notification extends Model
         'data',
         'scheduled_at',
         'sent_at',
+        'stopped_at',
         'is_recurring',
         'recurring_pattern',
         'recurring_frequency',
@@ -44,6 +45,7 @@ class Notification extends Model
         'target_ids' => 'array',
         'scheduled_at' => 'datetime',
         'sent_at' => 'datetime',
+        'stopped_at' => 'datetime',
         'recurring_until' => 'datetime',
         'is_recurring' => 'boolean',
     ];
@@ -66,6 +68,7 @@ class Notification extends Model
     const STATUS_SENT = 'sent';
     const STATUS_FAILED = 'failed';
     const STATUS_CANCELLED = 'cancelled';
+    const STATUS_STOPPED = 'stopped';
 
     // Target types
     const TARGET_ALL = 'all';

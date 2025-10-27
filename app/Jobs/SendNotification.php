@@ -43,6 +43,15 @@ class SendNotification implements ShouldQueue
             $totalFailed = 0;
 
             foreach ($recipients as $recipient) {
+                // Check if notification was stopped before processing each recipient
+                $this->notification->refresh();
+                if ($this->notification->status === 'stopped') {
+                    Log::info('Notification was stopped, aborting send job', [
+                        'notification_id' => $this->notification->id
+                    ]);
+                    return;
+                }
+
                 try {
                     // Here you would implement actual notification sending
                     // For now, we'll just mark as delivered
@@ -58,6 +67,9 @@ class SendNotification implements ShouldQueue
                         'recipient_id' => $recipient->id,
                         'recipient_type' => $recipient->recipient_type
                     ]);
+                    
+                    // Add a small delay to simulate real sending and allow for stop checks
+                    usleep(100000); // 0.1 second delay
                     
                 } catch (\Exception $e) {
                     $totalFailed++;

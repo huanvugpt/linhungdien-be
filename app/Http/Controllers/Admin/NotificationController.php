@@ -202,6 +202,46 @@ class NotificationController extends Controller
     }
 
     /**
+     * Stop notification that is currently sending
+     */
+    public function stop(Notification $notification)
+    {
+        if ($notification->status !== 'sending') {
+            return back()->with('error', 'Only notifications that are currently being sent can be stopped.');
+        }
+
+        // Mark notification as stopped
+        $notification->update([
+            'status' => 'stopped',
+            'stopped_at' => now()
+        ]);
+
+        // Update any pending recipients to failed status
+        $notification->recipients()
+            ->where('delivery_status', NotificationRecipient::DELIVERY_PENDING)
+            ->update([
+                'delivery_status' => NotificationRecipient::DELIVERY_FAILED,
+                'updated_at' => now()
+            ]);
+
+        // Update total counts
+        $totalSent = $notification->recipients()
+            ->where('delivery_status', NotificationRecipient::DELIVERY_DELIVERED)
+            ->count();
+        
+        $totalFailed = $notification->recipients()
+            ->where('delivery_status', NotificationRecipient::DELIVERY_FAILED)
+            ->count();
+
+        $notification->update([
+            'total_sent' => $totalSent,
+            'total_failed' => $totalFailed
+        ]);
+
+        return back()->with('success', 'Notification stopped successfully. Pending recipients marked as failed.');
+    }
+
+    /**
      * Show notification statistics
      */
     public function stats()
