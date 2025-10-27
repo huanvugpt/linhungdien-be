@@ -11,6 +11,7 @@ use App\Http\Controllers\API\AlbumController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\QuoteController;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -86,6 +87,13 @@ Route::prefix('albums')->group(function () {
     Route::get('recent', [AlbumController::class, 'getAlbums']);
     Route::get('search', [AlbumController::class, 'searchAlbums']);
     Route::get('{slug}', [AlbumController::class, 'getAlbum']);
+});
+
+// Public Quotes API routes
+Route::prefix('quotes')->group(function () {
+    Route::get('/', [QuoteController::class, 'index']);
+    Route::get('random', [QuoteController::class, 'getSingleRandomQuote']);
+    Route::get('random-5', [QuoteController::class, 'getRandomQuotes']);
 });
 
 // Protected API routes

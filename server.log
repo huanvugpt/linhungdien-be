@@ -1,0 +1,13 @@
+nohup: ignoring input
+
+   INFO  Server running on [http://0.0.0.0:8002].  
+
+  Press Ctrl+C to stop the server
+
+  2025-10-27 14:48:22 /api/quotes/random-5 ....................... ~ 500.29ms
+  2025-10-27 14:48:30 /api/quotes/random-5 ......................... ~ 0.09ms
+  2025-10-27 14:48:55 /api/quotes/random-5 ....................... ~ 500.35ms
+  2025-10-27 14:49:16 /api/quotes/random-5 ......................... ~ 0.08ms
+  2025-10-27 14:49:27 /api/quotes/random-5 ......................... ~ 0.12ms
+  2025-10-27 14:49:40 /api/quotes/random-5 ......................... ~ 0.08ms
+  2025-10-27 14:49:56 /api/quotes/random-5 ......................... ~ 0.10ms
