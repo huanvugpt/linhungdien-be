@@ -63,4 +63,9 @@ if (config('app.debug')) {
     });
 }
 
+// Default login route for Laravel auth (redirects to admin login)
+Route::get('login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 // Log Viewer moved to admin routes for security

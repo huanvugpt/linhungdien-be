@@ -16,37 +16,37 @@ class QuoteController extends Controller
     public function getRandomQuotes()
     {
         try {
-            // Lấy 5 câu quotes ngẫu nhiên, đảm bảo không trùng lặp content
-            // Bước 1: Lấy tất cả unique content 
-            $uniqueQuotes = Quote::select('content')
-                ->distinct()
-                ->pluck('content')
+            // Approach đơn giản: Lấy tất cả quotes, tự filter unique content sau đó
+            $allQuotes = Quote::all();
+            
+            // Group by content để lấy unique quotes
+            $uniqueQuotes = $allQuotes->groupBy('content')
+                ->map(function ($group) {
+                    // Lấy quote đầu tiên trong mỗi group content
+                    return $group->first();
+                })
+                ->values()
                 ->shuffle()
                 ->take(5);
 
-            // Bước 2: Với mỗi unique content, lấy 1 record bất kỳ
-            $quotes = collect();
-            foreach ($uniqueQuotes as $content) {
-                $quote = Quote::select('id', 'content', 'created_at')
-                    ->where('content', $content)
-                    ->first();
-                if ($quote) {
-                    $quotes->push($quote);
-                }
-            }
-
             // Nếu không đủ 5 quotes unique trong database
-            if ($quotes->count() < 5) {
-                $totalUniqueQuotes = Quote::distinct('content')->count();
+            if ($uniqueQuotes->count() < 5) {
+                $totalUniqueQuotes = $allQuotes->unique('content')->count();
                 
                 return response()->json([
                     'status' => true,
                     'message' => "Chỉ có {$totalUniqueQuotes} quotes unique trong hệ thống.",
                     'data' => [
-                        'quotes' => $quotes,
+                        'quotes' => $uniqueQuotes->map(function ($quote) {
+                            return [
+                                'id' => $quote->id,
+                                'content' => $quote->content,
+                                'created_at' => $quote->created_at
+                            ];
+                        }),
                         'total_available' => $totalUniqueQuotes,
                         'requested' => 5,
-                        'returned' => $quotes->count()
+                        'returned' => $uniqueQuotes->count()
                     ]
                 ], 200);
             }
@@ -55,8 +55,14 @@ class QuoteController extends Controller
                 'status' => true,
                 'message' => 'Lấy quotes ngẫu nhiên thành công.',
                 'data' => [
-                    'quotes' => $quotes,
-                    'count' => $quotes->count()
+                    'quotes' => $uniqueQuotes->map(function ($quote) {
+                        return [
+                            'id' => $quote->id,
+                            'content' => $quote->content,
+                            'created_at' => $quote->created_at
+                        ];
+                    }),
+                    'count' => $uniqueQuotes->count()
                 ]
             ], 200);
 

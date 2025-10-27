@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,5 +42,10 @@ class AppServiceProvider extends ServiceProvider
             config(['session.secure' => true]);
             config(['session.same_site' => 'none']);
         }
+        
+        // Configure default login route
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+            return url('/admin/login').'?token='.$token.'&email='.$user->getEmailForPasswordReset();
+        });
     }
 }
