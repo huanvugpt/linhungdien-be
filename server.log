@@ -1256,3 +1256,17 @@ nohup: ignoring input
   2025-10-27 16:07:47 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
   2025-10-27 16:07:47 /favicon.ico ................................. ~ 0.02ms
   2025-10-27 16:08:26 .............................................. ~ 1 phút
+
+   INFO  Environment modified. Restarting server...  
+
+   INFO  Server running on [http://0.0.0.0:8002].  
+
+  Press Ctrl+C to stop the server
+
+
+   INFO  Environment modified. Restarting server...  
+
+   INFO  Server running on [http://0.0.0.0:8002].  
+
+  Press Ctrl+C to stop the server
+

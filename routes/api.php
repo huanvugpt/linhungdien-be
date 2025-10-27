@@ -29,6 +29,17 @@ Route::get('/health', function () {
     ]);
 });
 
+// Debug endpoint for CSRF
+Route::get('/debug/csrf', function () {
+    return response()->json([
+        'csrf_token' => csrf_token(),
+        'session_id' => session()->getId(),
+        'sanctum_domains' => config('sanctum.stateful'),
+        'session_domain' => config('session.domain'),
+        'cors_paths' => config('cors.paths')
+    ]);
+});
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
