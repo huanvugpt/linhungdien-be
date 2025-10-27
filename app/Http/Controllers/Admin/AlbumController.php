@@ -211,7 +211,7 @@ class AlbumController extends Controller
                     'path' => $storedPath,
                     'mime_type' => $file->getMimeType(),
                     'file_size' => $file->getSize(),
-                    'dimensions' => $dimensions ? json_encode($dimensions) : null,
+                    'dimensions' => $dimensions, // Laravel will auto cast to JSON
                     'sort_order' => AlbumImage::where('album_id', $album->id)->max('sort_order') + 1,
                     'uploaded_by' => Auth::guard('admin')->id(),
                 ]);

@@ -88,7 +88,12 @@ class AlbumImage extends Model
      */
     public function getDimensionsStringAttribute()
     {
-        if (!$this->dimensions) {
+        if (!$this->dimensions || !is_array($this->dimensions)) {
+            return 'Unknown';
+        }
+        
+        // Check if we have valid dimensions
+        if (!isset($this->dimensions['width']) || !isset($this->dimensions['height'])) {
             return 'Unknown';
         }
         
