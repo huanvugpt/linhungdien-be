@@ -92,4 +92,7 @@ Route::middleware('admin')->group(function () {
     // Contact Management
     Route::resource('contacts', ContactController::class)->except(['create', 'edit']);
     Route::patch('contacts/{contact}/status', [ContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+    
+    // Log Viewer - Admin only
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs');
 });

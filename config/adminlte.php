@@ -472,6 +472,11 @@ return [
         
         ['header' => 'Settings'],
         [
+            'text' => 'Log Viewer',
+            'route' => 'admin.logs',
+            'icon' => 'fas fa-fw fa-file-alt',
+        ],
+        [
             'text' => 'Logout',
             'url' => '#',
             'icon' => 'fas fa-fw fa-sign-out-alt',

@@ -11,3 +11,45 @@ nohup: ignoring input
   2025-10-27 14:49:27 /api/quotes/random-5 ......................... ~ 0.12ms
   2025-10-27 14:49:40 /api/quotes/random-5 ......................... ~ 0.08ms
   2025-10-27 14:49:56 /api/quotes/random-5 ......................... ~ 0.10ms
+  2025-10-27 15:39:05 /logs ........................................ ~ 0.46ms
+  2025-10-27 15:39:36 /logs ........................................ ~ 0.12ms
+  2025-10-27 15:39:48 / ............................................ ~ 0.13ms
+  2025-10-27 15:39:48 /favicon.ico ................................. ~ 0.04ms
+  2025-10-27 15:39:52 /logs ........................................ ~ 0.08ms
+  2025-10-27 15:39:52 /favicon.ico ................................. ~ 1 giây
+  2025-10-27 15:42:47 /logs ........................................ ~ 0.08ms
+  2025-10-27 15:42:47 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 15:43:00 /admin/login ................................. ~ 0.12ms
+  2025-10-27 15:43:00 /vendor/icheck-bootstrap/icheck-bootstrap.min.css  ~ 0.05ms
+  2025-10-27 15:43:00 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.08ms
+  2025-10-27 15:43:00 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.25ms
+  2025-10-27 15:43:00 /vendor/jquery/jquery.min.js ................. ~ 0.33ms
+  2025-10-27 15:43:00 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.75ms
+  2025-10-27 15:43:00 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.86ms
+  2025-10-27 15:43:00 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.80ms
+  2025-10-27 15:43:00 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.24ms
+  2025-10-27 15:43:00 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 1.25ms
+  2025-10-27 15:43:00 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.04ms
+  2025-10-27 15:43:00 /favicon.ico ................................. ~ 0.08ms
+  2025-10-27 15:43:07 /admin/login ............................... ~ 500.35ms
+  2025-10-27 15:43:07 /admin ....................................... ~ 0.03ms
+  2025-10-27 15:44:41 /admin ....................................... ~ 0.08ms
+  2025-10-27 15:44:47 /admin ....................................... ~ 0.09ms
+  2025-10-27 15:44:47 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.72ms
+  2025-10-27 15:44:47 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.14ms
+  2025-10-27 15:44:47 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.07ms
+  2025-10-27 15:44:47 /vendor/jquery/jquery.min.js ................. ~ 0.25ms
+  2025-10-27 15:44:47 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.47ms
+  2025-10-27 15:44:47 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.53ms
+  2025-10-27 15:44:47 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 15:44:47 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.07ms
+  2025-10-27 15:44:47 /js/admin.js ................................. ~ 0.02ms
+  2025-10-27 15:44:47 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:44:47 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:44:51 /logs ........................................ ~ 0.10ms
+  2025-10-27 15:44:51 /favicon.ico ................................. ~ 0.04ms
+  2025-10-27 15:44:53 /admin/logs .................................. ~ 0.08ms
+  2025-10-27 15:44:59 /logs ........................................ ~ 0.08ms
+  2025-10-27 15:45:04 /admin/logs .................................. ~ 0.08ms
+  2025-10-27 15:45:04 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 15:45:11 /logs ........................................ ~ 0.08ms

@@ -62,3 +62,5 @@ if (config('app.debug')) {
         ]);
     });
 }
+
+// Log Viewer moved to admin routes for security
