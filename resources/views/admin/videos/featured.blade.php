@@ -1,27 +1,23 @@
-@extends('admin.layouts.app')
+@extends('adminlte::page')
 
-@section('title', 'Videos Nổi Bật')
+@section('title', 'Featured Videos - Linhungdien.com')
 
-@section('content')
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Videos Nổi Bật</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.videos.index') }}">Videos</a></li>
-                    <li class="breadcrumb-item active">Nổi bật</li>
-                </ol>
-            </div>
-        </div>
+@section('content_header')
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <h1>Featured Videos</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.videos.index') }}">Videos</a></li>
+            <li class="breadcrumb-item active">Featured</li>
+        </ol>
     </div>
 </div>
+@stop
 
-<div class="content">
-    <div class="container-fluid">
+@section('content')
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -146,10 +142,9 @@
             </div>
         </div>
     </div>
-</div>
-@endsection
+@stop
 
-@push('styles')
+@section('css')
 <style>
 .ribbon-wrapper.ribbon-lg .ribbon {
     width: 120px;
@@ -157,4 +152,4 @@
     top: 20px;
 }
 </style>
-@endpush
+@stop
