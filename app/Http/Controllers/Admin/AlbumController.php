@@ -162,11 +162,11 @@ class AlbumController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'images' => 'required|array|max:10',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:10240', // Max 10MB
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator);
+            return back()->withErrors($validator)->withInput();
         }
 
         $uploadedCount = 0;
@@ -175,33 +175,43 @@ class AlbumController extends Controller
         foreach ($request->file('images') as $file) {
             try {
                 // Generate unique filename
-                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = 'albums/' . $album->slug . '/' . $filename;
-
-                // Store the file
-                $file->storeAs('public/' . dirname($path), basename($path));
+                $originalName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '_' . Str::random(10) . '_' . Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . '.' . $extension;
+                
+                // Create album directory path
+                $albumDir = 'albums/' . ($album->slug ?: $album->id);
+                
+                // Store the file in public disk
+                $storedPath = $file->storeAs($albumDir, $filename, 'public');
+                
+                if (!$storedPath) {
+                    throw new \Exception('Failed to store file');
+                }
 
                 // Get image dimensions
                 $dimensions = null;
                 try {
                     $imageSize = getimagesize($file->getPathname());
-                    $dimensions = [
-                        'width' => $imageSize[0],
-                        'height' => $imageSize[1]
-                    ];
+                    if ($imageSize) {
+                        $dimensions = [
+                            'width' => $imageSize[0],
+                            'height' => $imageSize[1]
+                        ];
+                    }
                 } catch (\Exception $e) {
-                    // Ignore dimension errors
+                    // Ignore dimension errors, not critical
                 }
 
                 // Create album image record
-                AlbumImage::create([
+                $albumImage = AlbumImage::create([
                     'album_id' => $album->id,
-                    'title' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
-                    'filename' => $file->getClientOriginalName(),
-                    'path' => $path,
+                    'title' => pathinfo($originalName, PATHINFO_FILENAME),
+                    'filename' => $originalName,
+                    'path' => $storedPath,
                     'mime_type' => $file->getMimeType(),
                     'file_size' => $file->getSize(),
-                    'dimensions' => $dimensions,
+                    'dimensions' => $dimensions ? json_encode($dimensions) : null,
                     'sort_order' => AlbumImage::where('album_id', $album->id)->max('sort_order') + 1,
                     'uploaded_by' => Auth::guard('admin')->id(),
                 ]);
@@ -210,17 +220,23 @@ class AlbumController extends Controller
 
             } catch (\Exception $e) {
                 $errors[] = "Failed to upload {$file->getClientOriginalName()}: " . $e->getMessage();
+                \Log::error('Album image upload failed', [
+                    'album_id' => $album->id,
+                    'filename' => $file->getClientOriginalName(),
+                    'error' => $e->getMessage()
+                ]);
             }
         }
 
         if ($uploadedCount > 0) {
             $message = "Successfully uploaded {$uploadedCount} image(s)";
             if (!empty($errors)) {
-                $message .= ". Some files failed: " . implode(', ', $errors);
+                $message .= ". Some files had errors: " . implode(' | ', $errors);
+                return back()->with('warning', $message);
             }
             return back()->with('success', $message);
         } else {
-            return back()->with('error', 'No images were uploaded. ' . implode(', ', $errors));
+            return back()->with('error', 'No images were uploaded. Errors: ' . implode(' | ', $errors));
         }
     }
 

@@ -156,4 +156,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(PostSubmission::class);
     }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        // You can implement this based on your admin logic
+        // For example, check if user has admin role or specific status
+        return $this->status === 'admin' || $this->hasRole('admin');
+    }
+
+    /**
+     * Check if user has specific role (placeholder method)
+     */
+    public function hasRole(string $role): bool
+    {
+        // Implement role checking logic here
+        // This is a placeholder - you might have a roles table or role field
+        return false; // Temporarily return false
+    }
 }

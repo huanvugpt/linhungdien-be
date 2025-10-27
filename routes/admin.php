@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\AlbumController;
+use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\ContactController;
 
 /*
@@ -83,6 +84,10 @@ Route::middleware('admin')->group(function () {
     Route::post('submissions/{postSubmission}/approve', [App\Http\Controllers\Admin\AdminPostSubmissionController::class, 'approve'])->name('submissions.approve');
     Route::post('submissions/{postSubmission}/reject', [App\Http\Controllers\Admin\AdminPostSubmissionController::class, 'reject'])->name('submissions.reject');
     Route::post('submissions/{postSubmission}/publish', [App\Http\Controllers\Admin\AdminPostSubmissionController::class, 'publishApproved'])->name('submissions.publish');
+    
+    // Video Management
+    Route::resource('videos', VideoController::class);
+    Route::get('videos/featured/list', [VideoController::class, 'featured'])->name('videos.featured');
     
     // Contact Management
     Route::resource('contacts', ContactController::class)->except(['create', 'edit']);

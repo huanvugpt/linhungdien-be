@@ -40,20 +40,32 @@
                         <label for="images">Select Images</label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="images" name="images[]" 
-                                   multiple accept="image/*" required>
+                                   multiple accept="image/jpeg,image/png,image/jpg,image/gif,image/webp" required>
                             <label class="custom-file-label" for="images">Choose images...</label>
                         </div>
                         <small class="form-text text-muted">
                             <i class="fas fa-info-circle"></i> 
-                            Max 10 images per upload. Each image must be under 2MB. 
-                            Supported formats: JPG, PNG, GIF.
+                            Max 10 images per upload. Each image must be under 10MB. 
+                            Supported formats: JPG, PNG, GIF, WebP.
                         </small>
-                        @error('images')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                        @error('images.*')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                        @if($errors->has('images'))
+                            <div class="alert alert-danger mt-2">
+                                <ul class="mb-0">
+                                    @foreach($errors->get('images') as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if($errors->has('images.*'))
+                            <div class="alert alert-danger mt-2">
+                                <ul class="mb-0">
+                                    @foreach($errors->get('images.*') as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                     
                     <!-- Upload Preview -->
@@ -61,6 +73,9 @@
                     
                     <button type="submit" class="btn btn-primary" id="upload-btn" disabled>
                         <i class="fas fa-upload"></i> Upload Images
+                    </button>
+                    <button type="button" class="btn btn-secondary ml-2" onclick="clearSelection()">
+                        <i class="fas fa-times"></i> Clear
                     </button>
                 </form>
             </div>
@@ -344,19 +359,52 @@ $(document).ready(function() {
     $('.custom-file-input').on('change', function() {
         const files = this.files;
         let fileNames = [];
+        let validFiles = 0;
+        let errors = [];
         
         if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                fileNames.push(files[i].name);
+            if (files.length > 10) {
+                errors.push('Maximum 10 files allowed');
             }
-            $(this).next('.custom-file-label').text(files.length + ' file(s) selected');
-            $('#upload-btn').prop('disabled', false);
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                fileNames.push(file.name);
+                
+                // Check file type
+                if (!file.type.match(/^image\/(jpeg|jpg|png|gif|webp)$/i)) {
+                    errors.push(`${file.name}: Invalid file type`);
+                    continue;
+                }
+                
+                // Check file size (10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    errors.push(`${file.name}: File too large (max 10MB)`);
+                    continue;
+                }
+                
+                validFiles++;
+            }
+            
+            if (errors.length > 0) {
+                alert('Upload errors:\n' + errors.join('\n'));
+            }
+            
+            $(this).next('.custom-file-label').text(`${files.length} file(s) selected (${validFiles} valid)`);
+            $('#upload-btn').prop('disabled', validFiles === 0);
             showUploadPreview(files);
         } else {
             $(this).next('.custom-file-label').text('Choose images...');
             $('#upload-btn').prop('disabled', true);
             $('#upload-preview').hide();
         }
+    });
+    
+    // Upload form submit with progress
+    $('#upload-form').on('submit', function(e) {
+        const btn = $('#upload-btn');
+        btn.prop('disabled', true);
+        btn.html('<i class="fas fa-spinner fa-spin"></i> Uploading...');
     });
 });
 
@@ -455,6 +503,13 @@ function bulkDeleteImages() {
         // For demonstration, we'll hide the images (in real app, make AJAX calls)
         imageContainer.fadeOut();
     });
+}
+
+function clearSelection() {
+    $('#images').val('');
+    $('.custom-file-label').text('Choose images...');
+    $('#upload-btn').prop('disabled', true);
+    $('#upload-preview').hide();
 }
 </script>
 @stop

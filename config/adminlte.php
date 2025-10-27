@@ -425,6 +425,27 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Videos',
+            'icon' => 'fas fa-fw fa-video',
+            'submenu' => [
+                [
+                    'text' => 'All Videos',
+                    'route' => 'admin.videos.index',
+                    'icon' => 'fas fa-fw fa-list',
+                ],
+                [
+                    'text' => 'Create Video',
+                    'route' => 'admin.videos.create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+                [
+                    'text' => 'Featured Videos',
+                    'route' => 'admin.videos.featured',
+                    'icon' => 'fas fa-fw fa-star',
+                ],
+            ],
+        ],
         
         ['header' => 'User Management'],
         [

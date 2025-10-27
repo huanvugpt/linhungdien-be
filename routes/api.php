@@ -104,6 +104,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Video interactions (requires authentication)
     Route::post('videos/{id}/like', [VideoController::class, 'toggleLike']);
     
+    // Video management (requires authentication)
+    Route::post('videos', [VideoController::class, 'store']);
+    Route::put('videos/{video}', [VideoController::class, 'update']);
+    Route::delete('videos/{video}', [VideoController::class, 'destroy']);
+    
     // Notifications
     Route::prefix('notifications')->group(function () {
         Route::get('/', [NotificationController::class, 'index']);
