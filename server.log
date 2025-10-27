@@ -503,3 +503,190 @@ nohup: ignoring input
   2025-10-27 15:58:44 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
   2025-10-27 15:58:44 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
   2025-10-27 15:58:44 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:58:50 /admin/notifications ......................... ~ 0.20ms
+  2025-10-27 15:58:50 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.07ms
+  2025-10-27 15:58:50 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.24ms
+  2025-10-27 15:58:50 /vendor/jquery/jquery.min.js ................. ~ 0.31ms
+  2025-10-27 15:58:50 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.67ms
+  2025-10-27 15:58:50 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.81ms
+  2025-10-27 15:58:50 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 15:58:50 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 15:58:50 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.03ms
+  2025-10-27 15:58:50 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 15:58:50 /favicon.ico ................................. ~ 0.04ms
+  2025-10-27 15:58:56 /admin/notifications ......................... ~ 0.12ms
+  2025-10-27 15:58:56 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.05ms
+  2025-10-27 15:58:56 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.07ms
+  2025-10-27 15:58:56 /vendor/jquery/jquery.min.js ................. ~ 0.14ms
+  2025-10-27 15:58:56 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.55ms
+  2025-10-27 15:58:56 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.70ms
+  2025-10-27 15:58:56 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.04ms
+  2025-10-27 15:58:56 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 15:58:56 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.03ms
+  2025-10-27 15:58:56 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 15:58:56 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 15:59:02 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:02 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.04ms
+  2025-10-27 15:59:02 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.14ms
+  2025-10-27 15:59:02 /vendor/jquery/jquery.min.js ................. ~ 0.17ms
+  2025-10-27 15:59:02 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.41ms
+  2025-10-27 15:59:02 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.50ms
+  2025-10-27 15:59:02 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.02ms
+  2025-10-27 15:59:02 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.08ms
+  2025-10-27 15:59:02 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
+  2025-10-27 15:59:02 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:02 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:08 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:08 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.06ms
+  2025-10-27 15:59:08 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.17ms
+  2025-10-27 15:59:08 /vendor/jquery/jquery.min.js ................. ~ 0.20ms
+  2025-10-27 15:59:08 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.42ms
+  2025-10-27 15:59:08 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.50ms
+  2025-10-27 15:59:08 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.02ms
+  2025-10-27 15:59:08 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 15:59:08 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
+  2025-10-27 15:59:08 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:08 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:14 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:14 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.02ms
+  2025-10-27 15:59:14 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.04ms
+  2025-10-27 15:59:14 /vendor/jquery/jquery.min.js ................. ~ 0.08ms
+  2025-10-27 15:59:14 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.30ms
+  2025-10-27 15:59:14 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.37ms
+  2025-10-27 15:59:14 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.02ms
+  2025-10-27 15:59:14 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 15:59:14 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
+  2025-10-27 15:59:14 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:14 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:20 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:20 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.04ms
+  2025-10-27 15:59:20 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.14ms
+  2025-10-27 15:59:20 /vendor/jquery/jquery.min.js ................. ~ 0.18ms
+  2025-10-27 15:59:20 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.40ms
+  2025-10-27 15:59:20 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.48ms
+  2025-10-27 15:59:20 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 15:59:20 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.08ms
+  2025-10-27 15:59:20 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.12ms
+  2025-10-27 15:59:20 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:20 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:26 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:26 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.04ms
+  2025-10-27 15:59:26 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.06ms
+  2025-10-27 15:59:26 /vendor/jquery/jquery.min.js ................. ~ 0.12ms
+  2025-10-27 15:59:26 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.38ms
+  2025-10-27 15:59:26 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.50ms
+  2025-10-27 15:59:26 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 15:59:26 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 15:59:26 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.03ms
+  2025-10-27 15:59:26 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 15:59:26 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 15:59:32 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:32 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.02ms
+  2025-10-27 15:59:32 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.03ms
+  2025-10-27 15:59:32 /vendor/jquery/jquery.min.js ................. ~ 0.07ms
+  2025-10-27 15:59:32 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.30ms
+  2025-10-27 15:59:32 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.37ms
+  2025-10-27 15:59:32 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.02ms
+  2025-10-27 15:59:32 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 15:59:32 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.06ms
+  2025-10-27 15:59:32 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:32 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:38 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 15:59:38 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.04ms
+  2025-10-27 15:59:38 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.13ms
+  2025-10-27 15:59:38 /vendor/jquery/jquery.min.js ................. ~ 0.17ms
+  2025-10-27 15:59:38 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.39ms
+  2025-10-27 15:59:38 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.47ms
+  2025-10-27 15:59:38 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.02ms
+  2025-10-27 15:59:38 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 15:59:38 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
+  2025-10-27 15:59:38 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:38 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:44 /admin/notifications ......................... ~ 0.09ms
+  2025-10-27 15:59:44 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.04ms
+  2025-10-27 15:59:44 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.14ms
+  2025-10-27 15:59:44 /vendor/jquery/jquery.min.js ................. ~ 0.19ms
+  2025-10-27 15:59:44 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.41ms
+  2025-10-27 15:59:44 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.48ms
+  2025-10-27 15:59:44 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.02ms
+  2025-10-27 15:59:44 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 15:59:44 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
+  2025-10-27 15:59:44 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 15:59:44 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 15:59:50 /admin/notifications ......................... ~ 0.13ms
+  2025-10-27 15:59:50 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.07ms
+  2025-10-27 15:59:50 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.24ms
+  2025-10-27 15:59:50 /vendor/jquery/jquery.min.js ................. ~ 0.30ms
+  2025-10-27 15:59:50 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.65ms
+  2025-10-27 15:59:50 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.77ms
+  2025-10-27 15:59:50 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 15:59:50 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 15:59:50 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.03ms
+  2025-10-27 15:59:50 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 15:59:50 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 15:59:56 /admin/notifications ......................... ~ 0.10ms
+  2025-10-27 15:59:56 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.09ms
+  2025-10-27 15:59:56 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.26ms
+  2025-10-27 15:59:56 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.34ms
+  2025-10-27 15:59:56 /vendor/jquery/jquery.min.js ................. ~ 0.46ms
+  2025-10-27 15:59:56 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.85ms
+  2025-10-27 15:59:56 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.04ms
+  2025-10-27 15:59:56 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.04ms
+  2025-10-27 15:59:56 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.04ms
+  2025-10-27 15:59:56 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 15:59:56 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 16:00:02 /admin/notifications ......................... ~ 0.19ms
+  2025-10-27 16:00:02 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.05ms
+  2025-10-27 16:00:02 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.07ms
+  2025-10-27 16:00:02 /vendor/jquery/jquery.min.js ................. ~ 0.14ms
+  2025-10-27 16:00:02 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.55ms
+  2025-10-27 16:00:02 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.68ms
+  2025-10-27 16:00:02 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.07ms
+  2025-10-27 16:00:02 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.07ms
+  2025-10-27 16:00:02 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.06ms
+  2025-10-27 16:00:02 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.06ms
+  2025-10-27 16:00:02 /favicon.ico ................................. ~ 0.06ms
+  2025-10-27 16:00:08 /admin/notifications ......................... ~ 0.10ms
+  2025-10-27 16:00:08 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.05ms
+  2025-10-27 16:00:08 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.18ms
+  2025-10-27 16:00:08 /vendor/jquery/jquery.min.js ................. ~ 0.24ms
+  2025-10-27 16:00:08 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.49ms
+  2025-10-27 16:00:08 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.59ms
+  2025-10-27 16:00:08 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 16:00:08 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.02ms
+  2025-10-27 16:00:08 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.02ms
+  2025-10-27 16:00:08 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 16:00:08 /favicon.ico ................................. ~ 0.02ms
+  2025-10-27 16:00:14 /admin/notifications ......................... ~ 0.11ms
+  2025-10-27 16:00:14 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.08ms
+  2025-10-27 16:00:14 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.25ms
+  2025-10-27 16:00:14 /vendor/jquery/jquery.min.js ................. ~ 0.32ms
+  2025-10-27 16:00:14 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.73ms
+  2025-10-27 16:00:14 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.88ms
+  2025-10-27 16:00:14 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.04ms
+  2025-10-27 16:00:14 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 16:00:14 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.03ms
+  2025-10-27 16:00:14 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 16:00:14 /favicon.ico ................................. ~ 0.03ms
+  2025-10-27 16:00:20 /admin/notifications ......................... ~ 0.08ms
+  2025-10-27 16:00:20 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.03ms
+  2025-10-27 16:00:20 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.06ms
+  2025-10-27 16:00:20 /vendor/jquery/jquery.min.js ................. ~ 0.13ms
+  2025-10-27 16:00:20 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.52ms
+  2025-10-27 16:00:20 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.66ms
+  2025-10-27 16:00:20 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 16:00:20 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 16:00:20 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.03ms
+  2025-10-27 16:00:20 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.03ms
+  2025-10-27 16:00:20 /favicon.ico ................................. ~ 0.04ms
+  2025-10-27 16:00:26 /admin/notifications ......................... ~ 0.09ms
+  2025-10-27 16:00:26 /vendor/fontawesome-free/css/all.min.css ..... ~ 0.03ms
+  2025-10-27 16:00:26 /vendor/overlayScrollbars/css/OverlayScrollbars.min.css  ~ 0.04ms
+  2025-10-27 16:00:26 /vendor/jquery/jquery.min.js ................. ~ 0.08ms
+  2025-10-27 16:00:26 /vendor/adminlte/dist/img/AdminLTELogo.png ... ~ 0.31ms
+  2025-10-27 16:00:26 /vendor/adminlte/dist/css/adminlte.min.css ... ~ 0.38ms
+  2025-10-27 16:00:26 /vendor/bootstrap/js/bootstrap.bundle.min.js . ~ 0.03ms
+  2025-10-27 16:00:26 /vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js  ~ 0.03ms
+  2025-10-27 16:00:26 /vendor/adminlte/dist/js/adminlte.min.js ..... ~ 0.07ms
+  2025-10-27 16:00:26 /vendor/fontawesome-free/webfonts/fa-solid-900.woff2  ~ 0.02ms
+  2025-10-27 16:00:26 /favicon.ico ................................. ~ 0.02ms
